@@ -23,3 +23,5 @@ const pratosDisponiveis = [
 ]
 
 let carrinho = []
+
+let pedidos = []
