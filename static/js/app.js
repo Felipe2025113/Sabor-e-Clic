@@ -77,6 +77,14 @@ function validarFormulario(event) {
   gerenciarErro("erro-endereco", enderecoInvalido)
 
   if (formularioValido) {
+    const novoPedido = {
+      id: pedidos.length + 1,
+      nome_cliente: campos.nome,
+      endereco: campos.endereco,
+      itens: [...carrinho],
+      status: "Aguardando"
+    }
+    pedidos.push(novoPedido)
     alert("Pedido realizado com sucesso!")
   }
 }
