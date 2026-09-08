@@ -21,7 +21,7 @@ function renderizarFila() {
       <h3>Pedido #${pedido.id} - ${pedido.cliente}</h3>
       <ul>${listaItens}</ul>
       <p>Status: <strong>${pedido.status}</strong></p>
-      <button onclick="iniciarPreparo(${pedido.id})">
+      <button onclick="iniciarPreparo(${pedido.id})">Iniciar Preparo</button>
       <button onclick="marcarPronto(${pedido.id})">Marcar como Pronto</button>
       <hr>
     `
