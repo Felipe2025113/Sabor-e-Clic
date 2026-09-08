@@ -79,12 +79,14 @@ function validarFormulario(event) {
   if (formularioValido) {
     const novoPedido = {
       id: pedidos.length + 1,
-      nome_cliente: campos.nome,
+      cliente: campos.nome,
       endereco: campos.endereco,
       itens: [...carrinho],
       status: "Aguardando"
     }
     pedidos.push(novoPedido)
+    carrinho = []
+    renderizarCarrinho()
     alert("Pedido realizado com sucesso!")
   }
 }
