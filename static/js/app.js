@@ -70,7 +70,7 @@ function validarFormulario(event) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   const emailInvalido = campos.email === "" || !emailRegex.test(campos.email)
 
-  const enderecoInvalido = campos.endereco === ""
+  const enderecoInvalido = campos.endereco === "" || campos.endereco.length < 3
 
   gerenciarErro("erro-nome", nomeInvalido)
   gerenciarErro("erro-email", emailInvalido)
