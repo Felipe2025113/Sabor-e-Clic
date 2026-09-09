@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabor & Clic</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="cabecalho">
+        <h1>Sabor & Clic</h1>
+        <button class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <aside class="menu-lateral" id="menuLateral">
+            <ul>
+                <li>
+                    <div class="wrapper">
+                        <div class="dropdown" id="dropdown">
+                            <button class="menu-btn" id="menuBtn">
+                                Menu <span class="arrow">▾</span>
+                            </button>
+                            <div class="menu-list" id="menuList">
+                            <button data-value="Cliente"><a href="Cliente.html">Cliente</a></button>
+                            <button data-value="Cozinheiro"><a href="Cozinheiro.html">Cozinheiro</a></button>
+                            <button data-value="ADM"><a href="ADM.html">ADM</a></button>
+                        </div>
+                    </div>
+                    <div class="selected" id="selected"></div>
+                    </div>
+                </li>
+                <li>Cardápios</li>
+                <li>Agendamentos</li>
+            </ul>
+        </aside>
+    </header>
+    
+    <div class="subheader">
+        <img class="fundo_cozinha" src="images/cozinha.jpg">
+    </div>
+    <div class="meio">
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse eligendi perspiciatis obcaecati cumque hic facere corporis, animi consequatur quae harum maxime officiis unde fugiat totam est, ut praesentium vitae ipsa.</p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
