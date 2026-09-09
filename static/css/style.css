@@ -1,0 +1,184 @@
+* {
+    box-sizing: border-box;
+}
+
+header{
+    color:black;
+    padding: 2%;
+    background-color: antiquewhite;
+    height: 10%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+body{
+    background-color: black;
+}
+
+
+.menu-toggle{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.menu-toggle span{
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: black;
+}
+
+.menu-lateral{
+    position: fixed;
+    top: 0;
+    left: -250px; 
+    width: 250px;
+    height: 100%;
+    background-color: black;
+    transition: left 0.3s ease;
+    color:antiquewhite;
+    border: 5px double antiquewhite;
+}
+
+.menu-lateral a {
+  text-decoration: none;
+  color: antiquewhite;
+}
+
+.menu-lateral a:visited,
+.menu-lateral a:hover,
+.menu-lateral a:active {
+  text-decoration: none;
+  color: antiquewhite;
+}
+
+li{
+    list-style-type:none;
+}
+
+.menu-lateral.aberto{
+    left: 0;
+}
+
+
+
+.fundo_cozinha{
+    background-size: cover;
+    height: 10%;
+    width: 100%;
+}
+
+.meio{
+    color:black;
+    background-color: antiquewhite;
+    height: 30%;
+    width:100%;
+    padding:20%;
+}
+
+:root {
+  --bg: #1c1f26;
+  --accent: antiquewhite;
+  --panel: #262a34;
+  --text: #eef1f7;
+  --muted: #9aa3b2;
+}
+
+* { box-sizing: border-box; }
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  
+}
+
+.menu-btn {
+  background: var(--accent);
+  color: black;
+  border: none;
+  padding: 12px 22px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  transition: filter 0.15s ease;
+}
+
+.menu-btn:hover {
+  filter: brightness(1.08);
+}
+
+.menu-btn .arrow {
+  transition: transform 0.2s ease;
+  font-size: 12px;
+}
+
+.dropdown.open .arrow {
+  transform: rotate(180deg);
+}
+
+.menu-list {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 180px;
+  background: var(--panel);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 10;
+}
+
+.dropdown.open .menu-list {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.menu-list button {
+  display: block;
+  width: 100%;
+  padding: 12px 18px;
+  background: none;
+  border: none;
+  color: var(--text);
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.menu-list button:hover {
+  background: rgba(255,255,255,0.06);
+}
+
+.menu-list button:not(:last-child) {
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.selected {
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 14px;
+  text-align: center;
+}
