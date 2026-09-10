@@ -17,34 +17,32 @@
 
         <aside class="menu-lateral" id="menuLateral">
             <ul>
-                <li>
-                    <div class="wrapper">
-                        <div class="dropdown" id="dropdown">
-                            <button class="menu-btn" id="menuBtn">
-                                Menu <span class="arrow">▾</span>
-                            </button>
-                            <div class="menu-list" id="menuList">
-                            <button data-entrar-como="CLIENTE">Cliente</button>
-                            <button data-entrar-como="COZINHEIRO">Cozinheiro</button>
-                            <button data-entrar-como="ADM">ADM</button>
-                        </div>
-                    </div>
-                    <div class="selected" id="selected"></div>
-                    </div>
-                </li>
+                <li></li>
                 <li>Cardápios</li>
                 <li>Agendamentos</li>
             </ul>
         </aside>
     </header>
-    
+
+    <section class="secao-perfil">
+        <h2>Entrar como</h2>
+        <div class="opcoes-perfil">
+            <button type="button" class="btn-cardapio" data-entrar-como="CLIENTE">Cliente</button>
+            <button type="button" class="btn-cardapio" data-entrar-como="COZINHEIRO">Cozinheiro</button>
+            <button type="button" class="btn-cardapio" data-entrar-como="ADM">ADM</button>
+        </div>
+    </section>
     <div class="subheader">
         <img class="fundo_cozinha" src="imagens/cozinha.jpg">
     </div>
+
     <div class="meio">
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse eligendi perspiciatis obcaecati cumque hic facere corporis, animi consequatur quae harum maxime officiis unde fugiat totam est, ut praesentium vitae ipsa.</p>
+        <p>A <b>Sabor & Clic</b> nasceu para atender pequenos chefs, empreendedores marmiteiros e redes de delivery que precisam de infraestrutura de ponta sem os custos de um restaurante tradicional.</p>
     </div>
-    <script src="../static/js/script.js"></script>
+
+    
+
+    <script src="script.js"></script>
     <script src="../static/js/seguranca.js"></script>
     <script src="../static/js/dados.js"></script>
 </body>
