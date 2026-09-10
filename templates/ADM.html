@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sabor & Clic</title>
-    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <header class="cabecalho">
@@ -73,10 +73,9 @@
             <div id="lista-pratos-adm" class="grade-cardapio"></div>
         </section>
     </main>
-
-    <script src="static/js/script.js"></script>
-    <script src="static/js/seguranca.js"></script>
-    <script src="static/js/dados.js"></script>
-    <script src="static/js/adm.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/seguranca.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dados.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/adm.js') }}"></script>
 </body>
 </html>
