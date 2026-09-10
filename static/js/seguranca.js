@@ -5,11 +5,11 @@ function entrarComo(perfil) {
   sessionStorage.setItem("perfilAtual", perfil)
 
   if (perfil === "ADM") {
-    window.location.href = "templates/ADM.html"
+    window.location.href = "/templates/ADM.html"
   } else if (perfil === "COZINHEIRO") {
-    window.location.href = "templates/Cozinheiro.html"
+    window.location.href = "/templates/Cozinheiro.html"
   } else if (perfil === "CLIENTE") {
-    window.location.href = "templates/Cliente.html"
+    window.location.href = "/templates/Cliente.html"
   }
 }
 
@@ -18,7 +18,7 @@ function verificarAcesso(perfilNecessario) {
 
   if (perfil !== perfilNecessario) {
     alert("Acesso não autorizado")
-    window.location.href = "templates/index.html"
+    window.location.href = "/templates/index.html"
   }
 }
 
