@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabor & Clic</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="cabecalho">
+        <h1>Sabor & Clic</h1>
+        <button class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <aside class="menu-lateral" id="menuLateral">
+            <ul>
+                <li></li>
+                <li>Cardápios</li>
+                <li>Agendamentos</li>
+            </ul>
+        </aside>
+    </header>
+
+    <main class="conteudo-cozinha">
+        <div class="cabecalho-secao">
+            <h2>Fila de pedidos</h2>
+        </div>
+        <div id="fila-pedidos" class="lista-pedidos-cozinha"></div>
+
+        <div class="cabecalho-secao" style="margin-top: 32px;">
+            <h2>Prontos para entrega</h2>
+        </div>
+        <div id="fila-prontos" class="lista-pedidos-cozinha"></div>
+    </main>
+
+    <script src="script.js"></script>
+    <script src="JS/seguranca.js"></script>
+    <script src="JS/dados.js"></script>
+    <script src="JS/cozinheiro.js"></script>
+</body>
+</html>

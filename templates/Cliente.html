@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabor & Clic</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="cabecalho">
+        <h1>Sabor & Clic</h1>
+        <button class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <aside class="menu-lateral" id="menuLateral">
+            <ul>
+                <li></li>
+                <li>Cardápios</li>
+                <li>Agendamentos</li>
+            </ul>
+        </aside>
+    </header>
+
+    <main class="conteudo-cliente">
+        <section id="cardapio" class="secao-cardapio">
+            <h2>Cardápio</h2>
+            <div id="lista-pratos" class="grade-cardapio"></div>
+        </section>
+
+        <section id="carrinho" class="secao-carrinho">
+            <h2>Carrinho</h2>
+            <div id="itens-carrinho" class="lista-carrinho"></div>
+            <p class="total-carrinho">Total: R$ <span id="valor-total">0.00</span></p>
+        </section>
+
+        <section id="finalizar" class="secao-formulario">
+            <h2>Finalizar pedido</h2>
+            <form id="form-pedido" class="form-pedido">
+                <label for="nome">Nome</label>
+                <input type="text" id="nome">
+                <span id="erro-nome" class="erro-campo">Informe um nome com pelo menos 3 letras.</span>
+
+                <label for="email">E-mail</label>
+                <input type="email" id="email">
+                <span id="erro-email" class="erro-campo">Informe um e-mail válido.</span>
+
+                <label for="endereco">Endereço</label>
+                <input type="text" id="endereco">
+                <span id="erro-endereco" class="erro-campo">Informe um endereço válido.</span>
+
+                <button type="submit" class="btn-cardapio">Confirmar pedido</button>
+            </form>
+        </section>
+
+        <section id="meus-pedidos" class="secao-pedidos">
+            <div class="cabecalho-secao">
+                <h2>Meus pedidos</h2>
+                <button class="btn-cardapio" onclick="document.getElementById('cardapio').scrollIntoView({behavior:'smooth'})">Ver cardápio</button>
+            </div>
+
+            <div id="kds-meus-pedidos" class="kds-board">
+                <div class="kds-coluna" data-status="Pedido recebido">
+                    <div class="kds-coluna-cabecalho aguardando">
+                        <span>Pedido recebido</span>
+                        <span id="kds-count-aguardando" class="kds-contador">0</span>
+                    </div>
+                    <div id="kds-col-aguardando" class="kds-coluna-corpo"></div>
+                </div>
+
+                <div class="kds-coluna" data-status="Em Preparo">
+                    <div class="kds-coluna-cabecalho preparo">
+                        <span>Em Preparo</span>
+                        <span id="kds-count-preparo" class="kds-contador">0</span>
+                    </div>
+                    <div id="kds-col-preparo" class="kds-coluna-corpo"></div>
+                </div>
+
+                <div class="kds-coluna" data-status="Pronto para Entrega">
+                    <div class="kds-coluna-cabecalho pronto">
+                        <span>Pronto para Entrega</span>
+                        <span id="kds-count-pronto" class="kds-contador">0</span>
+                    </div>
+                    <div id="kds-col-pronto" class="kds-coluna-corpo"></div>
+                </div>
+
+                <div class="kds-coluna" data-status="Entregue">
+                    <div class="kds-coluna-cabecalho entregue">
+                        <span>Entregue</span>
+                        <span id="kds-count-entregue" class="kds-contador">0</span>
+                    </div>
+                    <div id="kds-col-entregue" class="kds-coluna-corpo"></div>
+                </div>
+            </div>
+
+            <p id="meus-pedidos-vazio" class="fila-vazia" hidden>Você ainda não fez nenhum pedido.</p>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+    <script src="JS/seguranca.js"></script>
+    <script src="JS/dados.js"></script>
+    <script src="JS/dom.js"></script>
+    <script src="JS/app.js"></script>
+</body>
+</html>

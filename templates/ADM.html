@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabor & Clic</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="cabecalho">
+        <h1>Sabor & Clic</h1>
+        <button class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <aside class="menu-lateral" id="menuLateral">
+            <ul>
+                <li></li>
+                <li>Cardápios</li>
+                <li>Agendamentos</li>
+            </ul>
+        </aside>
+    </header>
+
+    <main class="conteudo-adm">
+        <section class="secao-formulario">
+            <h2>Cadastrar prato</h2>
+            <div class="form-pedido">
+                <label for="cad-nome">Nome</label>
+                <input type="text" id="cad-nome">
+
+                <label for="cad-descricao">Descrição</label>
+                <input type="text" id="cad-descricao">
+
+                <label for="cad-preco">Preço</label>
+                <input type="number" id="cad-preco" step="0.01">
+
+                <label for="cad-categoria">Categoria</label>
+                <input type="text" id="cad-categoria">
+
+                <button type="button" class="btn-cardapio"
+                    onclick="cadastrarPrato(document.getElementById('cad-nome').value, document.getElementById('cad-descricao').value, document.getElementById('cad-preco').value, document.getElementById('cad-categoria').value)">
+                    Cadastrar
+                </button>
+            </div>
+        </section>
+
+        <section class="secao-formulario">
+            <h2>Editar prato selecionado</h2>
+            <div class="form-pedido">
+                <label for="edit-nome">Nome</label>
+                <input type="text" id="edit-nome">
+
+                <label for="edit-descricao">Descrição</label>
+                <input type="text" id="edit-descricao">
+
+                <label for="edit-preco">Preço</label>
+                <input type="number" id="edit-preco" step="0.01">
+
+                <label for="edit-categoria">Categoria</label>
+                <input type="text" id="edit-categoria">
+
+                <button type="button" class="btn-cardapio" onclick="salvarEdicao()">Salvar edição</button>
+            </div>
+        </section>
+
+        <section>
+            <div class="cabecalho-secao">
+                <h2>Catálogo</h2>
+            </div>
+            <div id="lista-pratos-adm" class="grade-cardapio"></div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+    <script src="JS/seguranca.js"></script>
+    <script src="JS/dados.js"></script>
+    <script src="JS/adm.js"></script>
+</body>
+</html>
