@@ -1,6 +1,6 @@
 window.onload = function () {
   verificarAcesso("ADM")
-  renderizarCardapio()
+  renderizarCatalogoAdm()
 }
 
 let idEmEdicao = null
@@ -11,24 +11,38 @@ function gerarNovoId() {
   return Math.max(...idsExistentes) + 1
 }
 
-function cadastrarPrato(nome, descricao, preco, categoria){
-    const novoPrato = {
-        id: gerarNovoId(),
-        nome: nome,
-        descricao: descricao,
-        preco: parseFloat(preco),
-        categoria: categoria
-    }
-    pratosDisponiveis.push(novoPrato)
-    renderizarCardapio()
-    alert("Prato cadastrado com sucesso!")
+
+
+function cadastrarPrato(nome, descricao, preco, categoria) {
+  if (nome.trim() === "" || preco === "") {
+    alert("Preencha o nome e preço do prato")
+    return
+  }
+
+  const novoPrato = {
+    id: gerarNovoId(),
+    nome: nome,
+    descricao: descricao,
+    preco: parseFloat(preco),
+    categoria: categoria
+  }
+
+  pratosDisponiveis.push(novoPrato)
+  salvarPratos()
+  renderizarCatalogoAdm()
+  alert("Prato cadastrado com sucesso!")
 }
+
+
+
+
+
 
 function editarPrato(idPrato, novosDados) {
   const prato = pratosDisponiveis.find(p => p.id === idPrato)
 
   if (prato == undefined) {
-    alert("Prato não encontrado!")
+    alert("Prato não encontrado")
     return
   }
 
@@ -37,18 +51,27 @@ function editarPrato(idPrato, novosDados) {
   if (novosDados.preco !== undefined) prato.preco = parseFloat(novosDados.preco)
   if (novosDados.categoria !== undefined) prato.categoria = novosDados.categoria
 
-  renderizarCardapio()
-  alert("Prato atualizado com sucesso!")
+  salvarPratos()
+  renderizarCatalogoAdm()
+  alert("Prato atualizado com sucesso")
 }
+
+
+
+
 
 function removerPratoDoCatalogo(idPrato) {
   const index = pratosDisponiveis.findIndex(p => p.id === idPrato)
   if (index !== -1) {
     pratosDisponiveis.splice(index, 1)
-    renderizarCardapio()
+    salvarPratos()
+    renderizarCatalogoAdm()
     alert("Prato removido do catálogo!")
   }
 }
+
+
+
 
 function abrirEdicao(idPrato) {
   const prato = pratosDisponiveis.find(p => p.id === idPrato)
@@ -62,9 +85,13 @@ function abrirEdicao(idPrato) {
   document.getElementById("edit-categoria").value = prato.categoria
 }
 
+
+
+
+
 function salvarEdicao() {
   if (idEmEdicao == null) {
-    alert("Nenhum prato selecionado para edição!")
+    alert("Nenhum prato selecionado para edição")
     return
   }
 
@@ -76,4 +103,32 @@ function salvarEdicao() {
   })
 
   idEmEdicao = null
+}
+
+
+
+
+
+
+
+function renderizarCatalogoAdm() {
+  const container = document.getElementById("lista-pratos-adm")
+  container.innerHTML = ""
+
+  pratosDisponiveis.forEach(prato => {
+    const divPrato = document.createElement("div")
+    divPrato.className = "item-cardapio"
+    divPrato.innerHTML = `
+      <div>
+        <h3>${prato.nome}</h3>
+        <p>${prato.descricao}</p>
+        <p><strong>R$ ${prato.preco.toFixed(2)}</strong> · ${prato.categoria}</p>
+      </div>
+      <div class="acoes-item">
+        <button class="btn-avancar-status" onclick="abrirEdicao(${prato.id})">Editar</button>
+        <button class="btn-avancar-status" onclick="removerPratoDoCatalogo(${prato.id})">Remover</button>
+      </div>
+    `
+    container.appendChild(divPrato)
+  })
 }
