@@ -6,11 +6,16 @@ function renderizarCardapio() {
     const { id, nome, descricao, preco } = prato
 
     const divPrato = document.createElement("div")
+    divPrato.className = "item-cardapio"
     divPrato.innerHTML = `
-      <h3>${nome}</h3>
-      <p>${descricao}</p>
-      <p><strong>R$ ${preco.toFixed(2)}</strong></p>
-      <button onclick="adicionarAoCarrinho(${id})">Adicionar ao Carrinho</button>
+      <div>
+        <h3>${nome}</h3>
+        <p>${descricao}</p>
+        <p><strong>R$ ${preco.toFixed(2)}</strong></p>
+      </div>
+      <div class="acoes-item">
+        <button class="btn-avancar-status" onclick="adicionarAoCarrinho(${id})">Adicionar ao Carrinho</button>
+      </div>
     `
 
     conteinerCardapio.appendChild(divPrato)
@@ -22,7 +27,7 @@ function renderizarCarrinho() {
   const Total = document.getElementById("valor-total")
 
   if (carrinho.length === 0) {
-    conteinerCarrinho.innerHTML = "<p>Seu carrinho está vazio.</p>"
+    conteinerCarrinho.innerHTML = "<p class='fila-vazia'>Seu carrinho está vazio.</p>"
     Total.innerText = "0.00"
     return
   }
@@ -33,11 +38,11 @@ function renderizarCarrinho() {
     const subtotal = item.preco * item.quantidade
 
     const divItem = document.createElement("div")
+    divItem.className = "item-carrinho"
     divItem.innerHTML = `
       <p><strong>${item.nome}</strong></p>
       <p>Qtd: ${item.quantidade} x R$ ${item.preco.toFixed(2)} = Subtotal: R$ ${subtotal.toFixed(2)}</p>
-      <button onclick="removerDoCarrinho(${item.id})">Remover 1 unidade</button>
-      <hr>
+      <button class="btn-avancar-status" onclick="removerDoCarrinho(${item.id})">Remover 1 unidade</button>
     `
 
     conteinerCarrinho.appendChild(divItem)
