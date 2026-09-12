@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demonstração da API - Sabor & Clic</title>
+</head>
+<body>
+  <main>
+    <h1>Sabor & Clic — demonstração da Parte 1</h1>
+    <p>Pedido de teste. Os dados desta demonstração são apagados ao reiniciar o servidor.</p>
+    <p><a href="/">Voltar ao projeto</a></p>
+    <form id="pedido">
+      <p><label>Nome <input name="cliente" minlength="3" required></label></p>
+      <p><label>Endereço fictício <input name="endereco" minlength="3" required></label></p>
+      <p><label>Prato <select name="prato" id="pratos" required></select></label></p>
+      <p><label>Quantidade <input name="quantidade" type="number" min="1" step="1" value="1" required></label></p>
+      <button id="enviar" disabled>Criar pedido</button>
+    </form>
+    <p id="mensagem" role="status" aria-live="polite"></p>
+    <h2>Pedidos recebidos pelo servidor</h2>
+    <button id="atualizar" type="button">Atualizar lista</button>
+    <pre id="resultado"></pre>
+  </main>
+  <script src="/static/js/demo_api.js"></script>
+</body>
+</html>
