@@ -110,7 +110,7 @@ async function apiBuscarPedidos(){
 
 async function apiAtualizarStatusPedido(id, status, tempoEstimado = null){
     const dados = await requisicao(`/api/pedidos/${id}/status`, {
-        metodo: "PATCH",
+        metodo: "PUT",
         corpo: { status, tempoEstimado }
     })
     return Pedido.deJSON(dados)
@@ -123,6 +123,6 @@ async function apiBuscarCozinheiros(){
 
 async function apiAprovarCozinheiro(id){
     return await requisicao(`/api/cozinheiros/${id}/aprovar`, {
-        metodo: "PATCH"
+        metodo: "PUT"
     })
 }
