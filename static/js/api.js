@@ -1,7 +1,21 @@
+function mensagemPadrao(status){
+    switch (status){
+        case 401:
+            return "Não autenticado. Faça login novamente"
+        case 403:
+            return "Você não tem permissão para esta ação"
+        case 404:
+            return "Recurso não encontrado"
+        default:
+            return "Ocorreu um erro na requisição"
+    }
+}
+
 async function requisicao(caminho, { metodo = "GET", corpo = null } = {}){
     const opcoes = {
         method: metodo,
-        headers: {}
+        headers: {},
+        credentials: "same-origin"
     }
     if (corpo !== null){
         opcoes.headers["Content-Type"] = "application/json"
@@ -17,7 +31,7 @@ async function requisicao(caminho, { metodo = "GET", corpo = null } = {}){
 
     const dados = await resposta.json().catch(() => null)
     if (!resposta.ok){
-        const erro = new Error(dados?.erro || dados?.mensagem || "Ocorreu um erro na requisição")
+        const erro = new Error(dados?.erro || dados?.mensagem || mensagemPadrao(resposta.status))
         erro.status = resposta.status
         throw erro
     }
@@ -25,12 +39,22 @@ async function requisicao(caminho, { metodo = "GET", corpo = null } = {}){
     return dados
 }
 
+function lerSessao(dados){
+    if (!dados || !dados.usuario){
+        throw new Error("Resposta inválida do servidor")
+    }
+    return {
+        usuario: Usuario.deJSON(dados.usuario),
+        deveTrocarSenha: dados.deveTrocarSenha === true
+    }
+}
+
 async function apiLogin(credenciais){
     const dados = await requisicao("/api/login", {
         metodo: "POST",
         corpo: credenciais
     })
-    return Usuario.deJSON(dados)
+    return lerSessao(dados)
 }
 
 async function apiLogout(){
@@ -41,7 +65,7 @@ async function apiLogout(){
 
 async function apiUsuarioAtual(){
     const dados = await requisicao("/api/me")
-    return Usuario.deJSON(dados)
+    return lerSessao(dados)
 }
 
 async function apiCadastrarCliente(cadastro){
