@@ -1,3 +1,20 @@
+const REGEX_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const REGEX_SENHA = /^(?=.*[A-Za-z])(?=.*\d).{10,}$/
+const TURNOS = ["Manhã", "Tarde", "Noite"]
+const ESPECIALIDADES = ["Churrasqueiro", "Confeitaria", "Frutos do Mar", "Massas e molhos"]
+
+function textoValido(valor){
+    return typeof valor === "string" && valor.length >= 3 && valor.length <= 100
+}
+
+function emailValido(valor){
+    return typeof valor === "string" && valor !== "" && REGEX_EMAIL.test(valor)
+}
+
+function senhaValida(valor){
+    return typeof valor === "string" && REGEX_SENHA.test(valor)
+}
+
 class Usuario{
     #id
     #nome
@@ -26,26 +43,25 @@ class Usuario{
     }
 
     set nome(novoNome){
-        if (typeof novoNome != "string" || novoNome === "" || novoNome.length < 3 || novoNome.length > 100){
+        if (!textoValido(novoNome)){
             throw new Error("O nome deve ter de 3 a 100 caracteres")
         }
         this.#nome = novoNome
     }
 
     set email(novoEmail){
-        const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        if (typeof novoEmail != "string" || novoEmail === "" || !emailValido.test(novoEmail)){
+        if (!emailValido(novoEmail)){
             throw new Error("Email inválido")
         }
         this.#email = novoEmail
     }
 
     toJSON(){
-        return { id: this.#id, nome: this.#nome, email: this.#email }
+        return { id: this.#id, perfil: this.perfil, nome: this.#nome, email: this.#email }
     }
 
     static deJSON(obj){
-        switch (obj.perfil){
+        switch (obj?.perfil){
             case "CLIENTE":
                 return Cliente.deJSON(obj)
             case "ADM":
@@ -74,7 +90,7 @@ class Cliente extends Usuario{
     }
 
     set endereco(novoEndereco){
-        if (typeof novoEndereco != "string" || novoEndereco === "" || novoEndereco.length < 3 || novoEndereco.length > 100){
+        if (!textoValido(novoEndereco)){
             throw new Error("O endereço deve ter de 3 a 100 caracteres")
         }
         this.#endereco = novoEndereco
@@ -97,10 +113,6 @@ class Administrador extends Usuario{
 
     get perfil(){
         return "ADM"
-    }
-
-    toJSON(){
-        return { ...super.toJSON() }
     }
 
     static deJSON(obj){
@@ -126,34 +138,35 @@ class Cozinheiro extends Usuario{
     get especialidade(){
         return this.#especialidade
     }
+    get ativo(){
+        return this.#ativo
+    }
     get perfil(){
         return "COZINHEIRO"
     }
 
     set turno(novoTurno){
-        const turnos = ["Manhã", "Tarde", "Noite"]
-        if (novoTurno === "" || !turnos.includes(novoTurno)){
+        if (!TURNOS.includes(novoTurno)){
             throw new Error("Insira um turno válido")
         }
         this.#turno = novoTurno
     }
 
     set especialidade(novaEspec){
-        const especialidades = ["Churrasqueiro", "Confeitaria", "Frutos do Mar", "Massas e molhos"]
-        if (novaEspec === "" || !especialidades.includes(novaEspec)){
+        if (!ESPECIALIDADES.includes(novaEspec)){
             throw new Error("Insira uma especialidade válida")
         }
         this.#especialidade = novaEspec
     }
 
-    set ativo(status) {
-        if (typeof status !== "boolean") {
+    set ativo(status){
+        if (typeof status !== "boolean"){
             throw new Error("O status ativo deve ser um valor booleano")
         }
         this.#ativo = status
     }
 
-    aprovar() {
+    aprovar(){
         this.#ativo = true
     }
 
@@ -180,16 +193,16 @@ class Login{
     }
 
     set email(novoEmail){
-        const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
         if (typeof novoEmail !== "string" || novoEmail === ""){
             throw new Error("Informe o e-mail")
         }
-        if (!emailValido.test(novoEmail)){
+        if (!REGEX_EMAIL.test(novoEmail)){
             throw new Error("Email inválido")
         }
         this.#email = novoEmail
     }
 
+    // Sem regra de formato: a senha do ADM (e senhas provisórias) são definidas no servidor
     set senha(novaSenha){
         if (typeof novaSenha !== "string" || novaSenha === ""){
             throw new Error("Informe a senha")
@@ -206,46 +219,55 @@ class CadastroCliente{
     #nome
     #email
     #senha
+    #endereco
 
-    constructor(nome, email, senha){
+    constructor(nome, email, senha, endereco){
         this.nome = nome
         this.email = email
         this.senha = senha
+        this.endereco = endereco
     }
 
     get nome(){
         return this.#nome
     }
-
     get email(){
         return this.#email
     }
+    get endereco(){
+        return this.#endereco
+    }
 
     set nome(novoNome){
-        if (typeof novoNome != "string" || novoNome === "" || novoNome.length < 3 || novoNome.length > 100){
+        if (!textoValido(novoNome)){
             throw new Error("O nome deve ter de 3 a 100 caracteres")
         }
         this.#nome = novoNome
     }
 
     set email(novoEmail){
-        const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        if (typeof novoEmail != "string" || novoEmail === "" || !emailValido.test(novoEmail)){
+        if (!emailValido(novoEmail)){
             throw new Error("Email inválido")
         }
         this.#email = novoEmail
     }
 
     set senha(novaSenha){
-        const senhaValida = /^(?=.*[A-Za-z])(?=.*\d).{10,}$/
-        if (typeof novaSenha !== "string" || !senhaValida.test(novaSenha)){
+        if (!senhaValida(novaSenha)){
             throw new Error("A senha deve ter pelo menos 10 caracteres, contendo letras e números.")
         }
         this.#senha = novaSenha
     }
 
+    set endereco(novoEndereco){
+        if (!textoValido(novoEndereco)){
+            throw new Error("O endereço deve ter de 3 a 100 caracteres")
+        }
+        this.#endereco = novoEndereco
+    }
+
     toJSON(){
-        return { nome: this.#nome, email: this.#email, senha: this.#senha }
+        return { nome: this.#nome, email: this.#email, senha: this.#senha, endereco: this.#endereco }
     }
 }
 
@@ -276,31 +298,28 @@ class CadastroCozinheiro{
     }
 
     set nome(novoNome){
-        if (typeof novoNome != "string" || novoNome === "" || novoNome.length < 3 || novoNome.length > 100){
+        if (!textoValido(novoNome)){
             throw new Error("O nome deve ter de 3 a 100 caracteres")
         }
         this.#nome = novoNome
     }
 
     set email(novoEmail){
-        const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        if (typeof novoEmail != "string" || novoEmail === "" || !emailValido.test(novoEmail)){
+        if (!emailValido(novoEmail)){
             throw new Error("Email inválido")
         }
         this.#email = novoEmail
     }
 
     set turno(novoTurno){
-        const turnos = ["Manhã", "Tarde", "Noite"]
-        if (novoTurno === "" || !turnos.includes(novoTurno)){
+        if (!TURNOS.includes(novoTurno)){
             throw new Error("Insira um turno válido")
         }
         this.#turno = novoTurno
     }
 
     set especialidade(novaEspec){
-        const especialidades = ["Churrasqueiro", "Confeitaria", "Frutos do Mar", "Massas e molhos"]
-        if (novaEspec === "" || !especialidades.includes(novaEspec)){
+        if (!ESPECIALIDADES.includes(novaEspec)){
             throw new Error("Insira uma especialidade válida")
         }
         this.#especialidade = novaEspec
@@ -311,31 +330,36 @@ class CadastroCozinheiro{
     }
 }
 
-class AlterarSenha {
+class AlterarSenha{
     #senhaAtual
     #novaSenha
 
-    constructor(senhaAtual, novaSenha) {
+    constructor(senhaAtual, novaSenha, confirmacao){
         this.senhaAtual = senhaAtual
         this.novaSenha = novaSenha
+        if (novaSenha !== confirmacao){
+            throw new Error("A confirmação não confere com a nova senha")
+        }
+        if (senhaAtual === novaSenha){
+            throw new Error("A nova senha deve ser diferente da atual")
+        }
     }
 
-    set senhaAtual(senha) {
-        if (typeof senha !== "string" || senha === "") {
+    set senhaAtual(senha){
+        if (typeof senha !== "string" || senha === ""){
             throw new Error("Informe a senha atual / provisória")
         }
         this.#senhaAtual = senha
     }
 
-    set novaSenha(senha) {
-        const senhaValida = /^(?=.*[A-Za-z])(?=.*\d).{10,}$/
-        if (typeof senha !== "string" || !senhaValida.test(senha)) {
+    set novaSenha(senha){
+        if (!senhaValida(senha)){
             throw new Error("A nova senha deve ter pelo menos 10 caracteres, contendo letras e números.")
         }
         this.#novaSenha = senha
     }
 
-    toJSON() {
+    toJSON(){
         return { senhaAtual: this.#senhaAtual, novaSenha: this.#novaSenha }
     }
 }
@@ -368,14 +392,14 @@ class Prato{
     get ativo(){ return this.#ativo }
 
     set nome(novoNome){
-        if (typeof novoNome !== "string" || novoNome === "" || novoNome.length < 3 || novoNome.length > 100){
+        if (!textoValido(novoNome)){
             throw new Error("O nome do prato deve ter de 3 a 100 caracteres")
         }
         this.#nome = novoNome
     }
 
     set descricao(novaDescricao){
-        if (typeof novaDescricao !== "string" || novaDescricao === "" || novaDescricao.length < 3 || novaDescricao.length > 100){
+        if (!textoValido(novaDescricao)){
             throw new Error("A descrição do prato deve ter de 3 a 100 caracteres")
         }
         this.#descricao = novaDescricao
@@ -390,7 +414,7 @@ class Prato{
     }
 
     set categoria(novaCategoria){
-        if (typeof novaCategoria !== "string" || novaCategoria === "" || novaCategoria.length < 3 || novaCategoria.length > 100){
+        if (!textoValido(novaCategoria)){
             throw new Error("A categoria do prato deve ter de 3 a 100 caracteres")
         }
         this.#categoria = novaCategoria
@@ -412,11 +436,11 @@ class Prato{
     }
 
     atualizar(dados){
-        if ('nome' in dados) this.nome = dados.nome
-        if ('descricao' in dados) this.descricao = dados.descricao
-        if ('preco' in dados) this.preco = dados.preco
-        if ('categoria' in dados) this.categoria = dados.categoria
-        if ('ativo' in dados) this.ativo = dados.ativo
+        if ("nome" in dados) this.nome = dados.nome
+        if ("descricao" in dados) this.descricao = dados.descricao
+        if ("preco" in dados) this.preco = dados.preco
+        if ("categoria" in dados) this.categoria = dados.categoria
+        if ("ativo" in dados) this.ativo = dados.ativo
     }
 
     toJSON(){
@@ -461,7 +485,7 @@ class ItemPedido{
     }
 
     set nome(novoNome){
-        if (typeof novoNome != "string" || novoNome === "" || novoNome.length < 3 || novoNome.length > 100){
+        if (!textoValido(novoNome)){
             throw new Error("Nome do item inválido")
         }
         this.#nome = novoNome
@@ -629,14 +653,14 @@ class Pedido{
     }
 
     set nomeCliente(novoNome){
-        if (typeof novoNome !== "string" || novoNome === "" || novoNome.length < 3 || novoNome.length > 100){
+        if (!textoValido(novoNome)){
             throw new Error("Nome do cliente inválido")
         }
         this.#nomeCliente = novoNome
     }
 
     set endereco(novoEndereco){
-        if (typeof novoEndereco !== "string" || novoEndereco === "" || novoEndereco.length < 3 || novoEndereco.length > 100){
+        if (!textoValido(novoEndereco)){
             throw new Error("Endereço de entrega inválido")
         }
         this.#endereco = novoEndereco
