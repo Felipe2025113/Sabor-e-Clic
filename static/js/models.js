@@ -4,7 +4,7 @@ const TURNOS = ["Manhã", "Tarde", "Noite"]
 const ESPECIALIDADES = ["Churrasqueiro", "Confeitaria", "Frutos do Mar", "Massas e molhos"]
 
 function textoValido(valor){
-    return typeof valor === "string" && valor.length >= 3 && valor.length <= 100
+    return typeof valor === "string" && valor.trim().length >= 3 && valor.length <= 100
 }
 
 function emailValido(valor){
@@ -106,11 +106,6 @@ class Cliente extends Usuario{
 }
 
 class Administrador extends Usuario{
-
-    constructor(id, nome, email){
-        super(id, nome, email)
-    }
-
     get perfil(){
         return "ADM"
     }
