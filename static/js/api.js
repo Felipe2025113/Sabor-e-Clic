@@ -14,8 +14,7 @@ function mensagemPadrao(status){
 async function requisicao(caminho, { metodo = "GET", corpo = null } = {}){
     const opcoes = {
         method: metodo,
-        headers: {},
-        credentials: "same-origin"
+        headers: {}
     }
     if (corpo !== null){
         opcoes.headers["Content-Type"] = "application/json"
@@ -148,5 +147,11 @@ async function apiBuscarCozinheiros(){
 async function apiAprovarCozinheiro(id){
     return await requisicao(`/api/cozinheiros/${id}/aprovar`, {
         metodo: "PUT"
+    })
+}
+
+async function apiRecusarCozinheiro(id){
+    return await requisicao(`/api/cozinheiros/${id}`, {
+        metodo: "DELETE"
     })
 }
