@@ -26,44 +26,13 @@ header{
     align-items: center;
 }
 
-.menu-toggle{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 30px;
-    height: 21px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-}
 
-.menu-toggle span{
-    display: block;
-    height: 3px;
-    width: 100%;
-    background-color: black;
-}
 
-.menu-lateral{
-    position: fixed;
-    top: 0;
-    left: -250px;
-    width: 250px;
-    height: 100%;
-    background-color: black;
-    transition: left 0.3s ease;
-    color:antiquewhite;
-    border: 5px double antiquewhite;
-}
 
 li{
     list-style-type:none;
 }
 
-.menu-lateral.aberto{
-    left: 0;
-}
 
 .fundo_cozinha{
     background-size: cover;
@@ -115,47 +84,6 @@ li{
   transform: rotate(180deg);
 }
 
-.menu-list {
-  position: absolute;
-  top: calc(100% + 6px);
-  left: 0;
-  min-width: 180px;
-  background: var(--panel);
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
-  opacity: 0;
-  transform: translateY(-6px);
-  pointer-events: none;
-  transition: opacity 0.15s ease, transform 0.15s ease;
-  z-index: 10;
-}
-
-.dropdown.open .menu-list {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-.menu-list button {
-  display: block;
-  width: 100%;
-  padding: 12px 18px;
-  background: none;
-  border: none;
-  color: var(--text);
-  text-align: left;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.menu-list button:hover {
-  background: rgba(255,255,255,0.06);
-}
-
-.menu-list button:not(:last-child) {
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-}
 
 .selected {
   margin-top: 14px;
@@ -558,4 +486,344 @@ li{
 
 .conteudo-adm section {
   margin-bottom: 40px;
+}
+
+/*barra do usuario no cabecalho*/
+
+.barra-usuario {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-size: 14px;
+}
+
+.link-voltar {
+  color: black;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.link-voltar:hover {
+  text-decoration: underline;
+}
+
+/*dados do usuario logado*/
+
+.secao-conta {
+  margin-bottom: 48px;
+}
+
+.secao-conta h2 {
+  color: var(--accent);
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 20px;
+}
+
+.dados-usuario {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  margin: 0;
+}
+
+.dados-usuario div {
+  background: var(--panel);
+  border-radius: 10px;
+  padding: 14px 18px;
+}
+
+.dados-usuario dt {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.dados-usuario dd {
+  margin: 0;
+  font-size: 15px;
+  color: var(--text);
+  word-break: break-word;
+}
+
+/*cadastro e login*/
+
+.conteudo-auth {
+  background-color: black;
+  color: var(--text);
+  padding: 6% 4%;
+  display: flex;
+  justify-content: center;
+}
+
+.cartao-auth {
+  background: var(--panel);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 28px 26px;
+  width: 100%;
+  max-width: 460px;
+}
+
+.cartao-auth h2 {
+  color: var(--accent);
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+
+.subtitulo-auth {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0 0 20px;
+}
+
+.nota-auth {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 0 0 6px;
+}
+
+.abas-auth {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.aba-auth {
+  flex: 1;
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.aba-auth.ativa {
+  background: var(--accent);
+  color: black;
+  border-color: var(--accent);
+}
+
+.form-auth {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-auth[hidden] {
+  display: none;
+}
+
+.form-auth label {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 10px;
+}
+
+.form-auth input,
+.form-auth select {
+  background: var(--bg);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--text);
+  font-size: 14px;
+  width: 100%;
+}
+
+.form-auth input:focus,
+.form-auth select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.form-auth button[type="submit"] {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.mensagem-auth {
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+.mensagem-auth[hidden] {
+  display: none;
+}
+
+.mensagem-auth.erro {
+  background: rgba(224,122,122,0.15);
+  color: #e07a7a;
+  border: 1px solid rgba(224,122,122,0.4);
+}
+
+.mensagem-auth.sucesso {
+  background: rgba(134,193,124,0.15);
+  color: #86c17c;
+  border: 1px solid rgba(134,193,124,0.4);
+}
+
+/*solicitacoes de cozinheiros (adm)*/
+
+.lista-solicitacoes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.linha-solicitacao {
+  background: var(--panel);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.info-solicitacao {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 220px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.info-solicitacao strong {
+  font-size: 15px;
+  color: var(--text);
+}
+
+.sem-solicitacoes {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0;
+}
+
+.secao-solicitacoes h2 {
+  color: var(--accent);
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 20px;
+}
+
+/*borda das secoes (mesma cor do cabecalho)*/
+
+.conteudo-cliente > section,
+.conteudo-cozinha > section,
+.conteudo-adm > section {
+  border: 2px solid antiquewhite;
+  border-radius: 10px;
+  padding: 24px;
+  margin-bottom: 32px;
+}
+
+.conteudo-cliente > section:last-child,
+.conteudo-cozinha > section:last-child,
+.conteudo-adm > section:last-child {
+  margin-bottom: 0;
+}
+
+/*carregando e mensagens (app.js)*/
+
+[data-tela][hidden] {
+  display: none;
+}
+
+.carregando {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 100;
+  background: var(--accent);
+  color: black;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.carregando[hidden] {
+  display: none;
+}
+
+.mensagem {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  margin: 0;
+  padding: 12px 6%;
+  font-size: 14px;
+}
+
+.mensagem:empty {
+  display: none;
+}
+
+.mensagem.erro {
+  background: #3b2326;
+  color: #e07a7a;
+  border-bottom: 1px solid rgba(224,122,122,0.4);
+}
+
+.mensagem.sucesso {
+  background: #233426;
+  color: #86c17c;
+  border-bottom: 1px solid rgba(134,193,124,0.4);
+}
+
+.aviso-senha {
+  background: var(--panel);
+  border: 1px dashed var(--accent);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.aviso-senha p {
+  margin: 0 0 8px;
+}
+
+.aviso-senha strong {
+  color: var(--accent);
+  font-size: 16px;
+}
+
+.campo-minutos {
+  width: 90px;
+  background: var(--bg);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 8px 10px;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.form-pedido .campo-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.form-pedido .campo-checkbox input {
+  width: auto;
+}
+
+.form-pedido .nota-auth {
+  margin-top: 14px;
 }
