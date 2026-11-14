@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabor & Clic - ADM</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-pagina="admin" data-login="CadastroCliente.html">
+    <header class="cabecalho">
+        <h1>Sabor & Clic</h1>
+        <div class="barra-usuario">
+            <span>Olá, <strong data-perfil="nome"></strong></span>
+            <button type="button" class="btn-avancar-status" data-ir="troca-senha" data-oculto-na-troca>Alterar senha</button>
+            <button type="button" class="btn-avancar-status" data-logout>Sair</button>
+        </div>
+    </header>
+    <div id="loading" class="carregando" hidden>Carregando...</div>
+    <div id="mensagem" class="mensagem" role="status"></div>
+
+    <main class="conteudo-adm" data-tela="admin" hidden>
+        <section id="minha-conta" class="secao-conta">
+            <h2>Meus dados</h2>
+            <dl class="dados-usuario">
+                <div><dt>ID de identificação</dt><dd data-perfil="id"></dd></div>
+                <div><dt>Nome completo</dt><dd data-perfil="nome"></dd></div>
+                <div><dt>E-mail de acesso</dt><dd data-perfil="email"></dd></div>
+                <div><dt>Nível de permissão</dt><dd data-perfil="nivelPermissao"></dd></div>
+            </dl>
+        </section>
+
+        <section class="secao-formulario">
+            <h2>Alterar meus dados</h2>
+            <form id="form-dados-adm" class="form-pedido">
+                <label for="adm-nome">Nome completo</label>
+                <input type="text" id="adm-nome">
+
+                <label for="adm-email">E-mail de acesso</label>
+                <input type="email" id="adm-email">
+
+                <label for="adm-senha-atual">Senha atual (obrigatória para salvar)</label>
+                <input type="password" id="adm-senha-atual" autocomplete="current-password">
+
+                <p class="nota-auth">Para trocar a senha, use o botão "Alterar senha" no topo da página.</p>
+
+                <button type="submit" class="btn-cardapio">Salvar alterações</button>
+            </form>
+        </section>
+
+        <section class="secao-solicitacoes">
+            <h2>Cadastros de cozinheiros (<span id="total-solicitacoes">0</span> pendentes)</h2>
+            <div id="lista-cozinheiros" class="lista-solicitacoes"></div>
+        </section>
+
+        <section class="secao-formulario">
+            <h2 id="titulo-form-prato">Cadastrar prato</h2>
+            <form id="form-prato" class="form-pedido">
+                <input type="hidden" id="prato-id">
+
+                <label for="prato-nome">Nome</label>
+                <input type="text" id="prato-nome">
+
+                <label for="prato-descricao">Descrição</label>
+                <input type="text" id="prato-descricao">
+
+                <label for="prato-preco">Preço</label>
+                <input type="number" id="prato-preco" step="0.01">
+
+                <label for="prato-categoria">Categoria</label>
+                <input type="text" id="prato-categoria">
+
+                <label class="campo-checkbox" for="prato-ativo">
+                    <input type="checkbox" id="prato-ativo" checked>
+                    Disponível no cardápio
+                </label>
+
+                <button type="submit" class="btn-cardapio">Salvar prato</button>
+                <button type="button" id="btn-cancelar-prato" class="btn-avancar-status">Limpar / cancelar edição</button>
+            </form>
+        </section>
+
+        <section>
+            <div class="cabecalho-secao">
+                <h2>Catálogo</h2>
+            </div>
+            <div id="lista-admin-pratos" class="grade-cardapio"></div>
+        </section>
+    </main>
+
+    <main class="conteudo-adm" data-tela="troca-senha" hidden>
+        <section>
+            <h2>Alterar senha</h2>
+            <form id="form-troca-senha" class="form-pedido">
+                <label for="senha-atual">Senha atual (ou provisória)</label>
+                <input type="password" id="senha-atual" autocomplete="current-password">
+
+                <label for="senha-nova">Nova senha</label>
+                <input type="password" id="senha-nova" autocomplete="new-password">
+
+                <label for="senha-confirmacao">Confirmar nova senha</label>
+                <input type="password" id="senha-confirmacao" autocomplete="new-password">
+
+                <p class="nota-auth">A nova senha deve ter pelo menos 10 caracteres, contendo letras e números.</p>
+
+                <button type="submit" class="btn-cardapio">Salvar nova senha</button>
+                <button type="button" class="btn-avancar-status" data-ir="admin" data-oculto-na-troca>Voltar</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+    <script src="JS/models.js"></script>
+    <script src="JS/api.js"></script>
+    <script src="JS/app.js"></script>
+</body>
+</html>

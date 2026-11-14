@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabor & Clic - Cozinheiro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-pagina="cozinha" data-login="CadastroCozinheiro.html">
+    <header class="cabecalho">
+        <h1>Sabor & Clic</h1>
+        <div class="barra-usuario">
+            <span>Olá, <strong data-perfil="nome"></strong></span>
+            <button type="button" class="btn-avancar-status" data-ir="troca-senha" data-oculto-na-troca>Alterar senha</button>
+            <button type="button" class="btn-avancar-status" data-logout>Sair</button>
+        </div>
+    </header>
+    <div id="loading" class="carregando" hidden>Carregando...</div>
+    <div id="mensagem" class="mensagem" role="status"></div>
+
+    <main class="conteudo-cozinha" data-tela="cozinha" hidden>
+        <section id="minha-conta" class="secao-conta">
+            <h2>Meu perfil</h2>
+            <dl class="dados-usuario">
+                <div><dt>ID de identificação</dt><dd data-perfil="id"></dd></div>
+                <div><dt>Nome</dt><dd data-perfil="nome"></dd></div>
+                <div><dt>E-mail</dt><dd data-perfil="email"></dd></div>
+                <div><dt>Turno de trabalho</dt><dd data-perfil="turno"></dd></div>
+                <div><dt>Especialidade na cozinha</dt><dd data-perfil="especialidade"></dd></div>
+            </dl>
+        </section>
+
+        <section>
+            <div class="cabecalho-secao">
+                <h2>Fila de pedidos</h2>
+            </div>
+            <div id="lista-fila" class="lista-pedidos-cozinha"></div>
+        </section>
+
+        <section>
+            <div class="cabecalho-secao">
+                <h2>Prontos para entrega</h2>
+            </div>
+            <div id="lista-prontos" class="lista-pedidos-cozinha"></div>
+        </section>
+    </main>
+
+    <main class="conteudo-cozinha" data-tela="troca-senha" hidden>
+        <section>
+            <h2>Alterar senha</h2>
+            <form id="form-troca-senha" class="form-pedido">
+                <label for="senha-atual">Senha atual (ou provisória)</label>
+                <input type="password" id="senha-atual" autocomplete="current-password">
+
+                <label for="senha-nova">Nova senha</label>
+                <input type="password" id="senha-nova" autocomplete="new-password">
+
+                <label for="senha-confirmacao">Confirmar nova senha</label>
+                <input type="password" id="senha-confirmacao" autocomplete="new-password">
+
+                <p class="nota-auth">A nova senha deve ter pelo menos 10 caracteres, contendo letras e números.</p>
+
+                <button type="submit" class="btn-cardapio">Salvar nova senha</button>
+                <button type="button" class="btn-avancar-status" data-ir="cozinha" data-oculto-na-troca>Voltar</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+    <script src="JS/models.js"></script>
+    <script src="JS/api.js"></script>
+    <script src="JS/app.js"></script>
+</body>
+</html>

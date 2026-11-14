@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabor & Clic - Cozinheiro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="cabecalho">
+        <h1>Sabor & Clic</h1>
+        <a class="link-voltar" href="index.html">← Voltar ao início</a>
+    </header>
+    <div id="loading" class="carregando" hidden>Carregando...</div>
+    <div id="mensagem" class="mensagem" role="status"></div>
+
+    <main class="conteudo-auth" data-tela="login">
+        <div class="cartao-auth">
+            <h2>Área do Cozinheiro</h2>
+            <p class="subtitulo-auth">Entre ou solicite seu cadastro para acessar a fila de produção.</p>
+
+            <div class="abas-auth">
+                <button type="button" class="aba-auth ativa" data-ir="login">Entrar</button>
+                <button type="button" class="aba-auth" data-ir="cadastro-cozinheiro">Cadastrar-se</button>
+            </div>
+
+            <form id="form-login" class="form-auth" novalidate>
+                <label for="login-email">E-mail</label>
+                <input type="email" id="login-email" placeholder="seu@email.com" autocomplete="username">
+
+                <label for="login-senha">Senha</label>
+                <input type="password" id="login-senha" placeholder="Sua senha" autocomplete="current-password">
+
+                <button type="submit" class="btn-cardapio">Entrar</button>
+            </form>
+        </div>
+    </main>
+
+    <main class="conteudo-auth" data-tela="cadastro-cozinheiro" hidden>
+        <div class="cartao-auth">
+            <h2>Área do Cozinheiro</h2>
+            <p class="subtitulo-auth">Entre ou solicite seu cadastro para acessar a fila de produção.</p>
+
+            <div class="abas-auth">
+                <button type="button" class="aba-auth" data-ir="login">Entrar</button>
+                <button type="button" class="aba-auth ativa" data-ir="cadastro-cozinheiro">Cadastrar-se</button>
+            </div>
+
+            <form id="form-cadastro-cozinheiro" class="form-auth" novalidate>
+                <p class="nota-auth">O cadastro só é concluído quando o administrador aceitar a solicitação. Ele vai gerar uma senha provisória para você entrar.</p>
+
+                <label for="coz-nome">Nome</label>
+                <input type="text" id="coz-nome" placeholder="Nome do cozinheiro" autocomplete="name">
+
+                <label for="coz-email">E-mail</label>
+                <input type="email" id="coz-email" placeholder="seu@email.com" autocomplete="email">
+
+                <label for="coz-turno">Turno de trabalho</label>
+                <select id="coz-turno"></select>
+
+                <label for="coz-especialidade">Especialidade na cozinha</label>
+                <select id="coz-especialidade"></select>
+
+                <button type="submit" class="btn-cardapio">Enviar solicitação</button>
+            </form>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script src="JS/models.js"></script>
+    <script src="JS/api.js"></script>
+    <script src="JS/app.js"></script>
+</body>
+</html>

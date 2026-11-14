@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabor & Clic - Cliente</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-pagina="cliente" data-login="CadastroCliente.html">
+    <header class="cabecalho">
+        <h1>Sabor & Clic</h1>
+        <div class="barra-usuario">
+            <span>Olá, <strong data-perfil="nome"></strong></span>
+            <button type="button" class="btn-avancar-status" data-ir="troca-senha" data-oculto-na-troca>Alterar senha</button>
+            <button type="button" class="btn-avancar-status" data-logout>Sair</button>
+        </div>
+    </header>
+    <div id="loading" class="carregando" hidden>Carregando...</div>
+    <div id="mensagem" class="mensagem" role="status"></div>
+
+    <main class="conteudo-cliente" data-tela="cliente" hidden>
+        <section id="minha-conta" class="secao-conta">
+            <h2>Minha conta</h2>
+            <dl class="dados-usuario">
+                <div><dt>ID de identificação</dt><dd data-perfil="id"></dd></div>
+                <div><dt>Nome</dt><dd data-perfil="nome"></dd></div>
+                <div><dt>E-mail</dt><dd data-perfil="email"></dd></div>
+                <div><dt>Endereço de entrega</dt><dd data-perfil="endereco"></dd></div>
+                <div><dt>Pedidos realizados</dt><dd id="total-pedidos">0</dd></div>
+            </dl>
+        </section>
+
+        <section id="cardapio" class="secao-cardapio">
+            <h2>Cardápio</h2>
+            <div id="lista-cardapio" class="grade-cardapio"></div>
+        </section>
+
+        <section id="carrinho" class="secao-carrinho">
+            <h2>Carrinho</h2>
+            <div id="lista-carrinho" class="lista-carrinho"></div>
+            <p class="total-carrinho">Total: <span id="total-carrinho">R$ 0,00</span></p>
+        </section>
+
+        <section id="finalizar" class="secao-formulario">
+            <h2>Finalizar pedido</h2>
+            <div class="form-pedido">
+                <label for="pedido-endereco">Endereço de entrega (deixe em branco para usar o endereço cadastrado)</label>
+                <input type="text" id="pedido-endereco">
+
+                <button type="button" id="btn-finalizar" class="btn-cardapio" disabled>Confirmar pedido</button>
+            </div>
+        </section>
+
+        <section id="meus-pedidos" class="secao-pedidos">
+            <div class="cabecalho-secao">
+                <h2>Meus pedidos</h2>
+                <button type="button" class="btn-cardapio" onclick="document.getElementById('cardapio').scrollIntoView({behavior:'smooth'})">Ver cardápio</button>
+            </div>
+
+            <div id="kds-meus-pedidos" class="kds-board">
+                <div class="kds-coluna" data-status="Pedido recebido">
+                    <div class="kds-coluna-cabecalho aguardando">
+                        <span>Pedido recebido</span>
+                        <span id="kds-count-aguardando" class="kds-contador">0</span>
+                    </div>
+                    <div id="kds-col-aguardando" class="kds-coluna-corpo"></div>
+                </div>
+
+                <div class="kds-coluna" data-status="Em Preparo">
+                    <div class="kds-coluna-cabecalho preparo">
+                        <span>Em Preparo</span>
+                        <span id="kds-count-preparo" class="kds-contador">0</span>
+                    </div>
+                    <div id="kds-col-preparo" class="kds-coluna-corpo"></div>
+                </div>
+
+                <div class="kds-coluna" data-status="Pronto para Entrega">
+                    <div class="kds-coluna-cabecalho pronto">
+                        <span>Pronto para Entrega</span>
+                        <span id="kds-count-pronto" class="kds-contador">0</span>
+                    </div>
+                    <div id="kds-col-pronto" class="kds-coluna-corpo"></div>
+                </div>
+
+                <div class="kds-coluna" data-status="Entregue">
+                    <div class="kds-coluna-cabecalho entregue">
+                        <span>Entregue</span>
+                        <span id="kds-count-entregue" class="kds-contador">0</span>
+                    </div>
+                    <div id="kds-col-entregue" class="kds-coluna-corpo"></div>
+                </div>
+            </div>
+
+            <p id="meus-pedidos-vazio" class="fila-vazia" hidden>Você ainda não fez nenhum pedido.</p>
+        </section>
+    </main>
+
+    <main class="conteudo-cliente" data-tela="troca-senha" hidden>
+        <section>
+            <h2>Alterar senha</h2>
+            <form id="form-troca-senha" class="form-pedido">
+                <label for="senha-atual">Senha atual (ou provisória)</label>
+                <input type="password" id="senha-atual" autocomplete="current-password">
+
+                <label for="senha-nova">Nova senha</label>
+                <input type="password" id="senha-nova" autocomplete="new-password">
+
+                <label for="senha-confirmacao">Confirmar nova senha</label>
+                <input type="password" id="senha-confirmacao" autocomplete="new-password">
+
+                <p class="nota-auth">A nova senha deve ter pelo menos 10 caracteres, contendo letras e números.</p>
+
+                <button type="submit" class="btn-cardapio">Salvar nova senha</button>
+                <button type="button" class="btn-avancar-status" data-ir="cliente" data-oculto-na-troca>Voltar</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+    <script src="JS/models.js"></script>
+    <script src="JS/api.js"></script>
+    <script src="JS/app.js"></script>
+</body>
+</html>
