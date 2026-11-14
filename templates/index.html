@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sabor & Clic</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <header class="cabecalho">
@@ -18,19 +18,17 @@
             <button type="button" class="btn-cardapio" data-entrar-como="COZINHEIRO">Cozinheiro</button>
         </div>
     </section>
+
     <div class="subheader">
-        <img class="fundo_cozinha" src="images/cozinha.jpg">
+        <img class="fundo_cozinha" src="{{ url_for('static', filename='images/cozinha.jpg') }}" alt="Cozinha profissional">
     </div>
 
     <div class="meio">
         <p>A <b>Sabor & Clic</b> nasceu para atender pequenos chefs, empreendedores marmiteiros e redes de delivery que precisam de infraestrutura de ponta sem os custos de um restaurante tradicional.</p>
     </div>
 
-    
-
-    <script src="script.js"></script>
-    <script src="JS/models.js"></script>
-    <script src="JS/api.js"></script>
-    <script src="JS/app.js"></script>
+    <script src="{{ url_for('static', filename='js/models.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/api.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>
