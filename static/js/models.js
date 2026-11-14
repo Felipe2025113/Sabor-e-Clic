@@ -106,12 +106,18 @@ class Cliente extends Usuario{
 }
 
 class Administrador extends Usuario{
-    get perfil(){
-        return "ADM"
+    #nivelPermissao
+
+    constructor(id, nome, email, nivelPermissao){
+        super(id, nome, email)
+        this.#nivelPermissao = nivelPermissao
     }
 
+    get perfil(){ return "ADM" }
+    get nivelPermissao(){ return this.#nivelPermissao }
+
     static deJSON(obj){
-        return new Administrador(obj.id, obj.nome, obj.email)
+        return new Administrador(obj.id, obj.nome, obj.email, obj.nivelPermissao)
     }
 }
 

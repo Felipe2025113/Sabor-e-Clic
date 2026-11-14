@@ -1,0 +1,41 @@
+services:
+  db:
+    image: sabor-clic-mysql:parte2
+    build:
+      context: .
+      dockerfile: database/Dockerfile
+    environment:
+      MYSQL_DATABASE: sabor_clic
+      MYSQL_USER: sabor
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?Preencha MYSQL_PASSWORD no arquivo .env}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Preencha MYSQL_ROOT_PASSWORD no arquivo .env}
+    volumes:
+      - dados_mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", 'MYSQL_PWD="$$MYSQL_PASSWORD" mysql -h 127.0.0.1 -u "$$MYSQL_USER" "$$MYSQL_DATABASE" -Nse "SELECT 1 FROM usuario LIMIT 1"']
+      interval: 3s
+      timeout: 5s
+      retries: 30
+  web:
+    image: sabor-clic-web:parte2
+    build: .
+    init: true
+    ports:
+      - "127.0.0.1:${SABOR_PORTA-5055}:5000"
+    environment:
+      MYSQL_HOST: db
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: sabor_clic
+      MYSQL_USER: sabor
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?Preencha MYSQL_PASSWORD}
+      SECRET_KEY: ${SECRET_KEY:?Preencha SECRET_KEY no arquivo .env}
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:5000/api/health', timeout=5).close()"]
+      interval: 3s
+      timeout: 6s
+      retries: 20
+volumes:
+  dados_mysql:
