@@ -9,6 +9,7 @@ from flask import Flask, abort, redirect, render_template, request, session
 from werkzeug.exceptions import HTTPException
 
 from controllers.api import api
+from models.banco import motivo_conexao, verificar_conexao
 
 
 def create_app():
@@ -82,16 +83,20 @@ def create_app():
             return {'erro': 'Regra de negócio recusou a operação (verifique o estoque).'}, 409
 
         app.logger.error('Falha no MySQL (código %s).', codigo)
-        if codigo in (1044, 1045):
-            return {'erro': 'O MySQL recusou o acesso. Confira o usuário e a senha da conexão.'}, 503
-        if codigo in (1049, 1146):
-            return {'erro': 'A base ainda não foi preparada. Siga a seção de MySQL do README.'}, 503
-        if isinstance(erro, pymysql.err.ProgrammingError):
+        if isinstance(erro, pymysql.err.ProgrammingError) and codigo != 1146:
             return {'erro': 'Erro ao consultar o banco de dados.'}, 500
-        return {'erro': 'Banco de dados indisponível. Inicie o MySQL e confira o endereço e a porta.'}, 503
+        return {'erro': motivo_conexao(erro)}, 503
 
     return app
 
 
 if __name__ == '__main__':
+    try:
+        verificar_conexao()
+    except pymysql.MySQLError as erro:
+        raise SystemExit(
+            motivo_conexao(erro) + ' Para reconfigurar no Windows, abra Iniciar-MySQL-Local.bat.'
+        ) from None
+    except ValueError:
+        raise SystemExit('Confira a porta MYSQL_PORT no .env.') from None
     create_app().run(host='127.0.0.1', port=5000)

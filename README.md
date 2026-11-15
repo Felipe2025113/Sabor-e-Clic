@@ -39,6 +39,10 @@ python -m pip install -r requirements.txt
 
 Copie `.env.example` para `.env`. Configure `MYSQL_HOST` e `MYSQL_PORT` conforme seu servidor MySQL (em instalações locais, normalmente `127.0.0.1:3306`). Preencha também `MYSQL_USER`, `MYSQL_PASSWORD`, `MYSQL_DATABASE` e `SECRET_KEY`. O arquivo é lido automaticamente. `MYSQL_ROOT_PASSWORD` só é usado no Docker. `COOKIE_SECURE=0` permite a demonstração local por HTTP.
 
+No Windows, você também pode abrir `Iniciar-MySQL-Local.bat` com o MySQL instalado e em execução. Se a conexão atual falhar, o iniciador pede os dados da conexão que funciona no MySQL Workbench. Ele salva a configuração no `.env` e abre o navegador quando a base estiver pronta. Se a base ainda estiver vazia, siga a preparação abaixo. A senha digitada é a senha do MySQL. O cadastro de cozinheiro e a senha de administrador do site são separados.
+
+Para só testar a configuração local, rode `python -m scripts.iniciar_mysql_local --verificar`. O iniciador para o MySQL local prioriza o `.env` da pasta. Ao rodar o Flask diretamente pelo VS Code, reinicie o servidor após corrigir o arquivo e confira se a configuração do VS Code define valores diferentes.
+
 Para uma **base nova e vazia**, com um usuário autorizado a criar as tabelas:
 
 ```sh

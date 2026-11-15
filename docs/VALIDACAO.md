@@ -11,8 +11,12 @@ A base deste trabalho foi o commit `041c91c` do repositório, baixado do GitHub 
 | Instalação | Backend em memória, pasta do banco vazia | O iniciador prepara o esquema, os dados básicos e as nove triggers |
 | Banco indisponível | Na integração enviada anteriormente, a checagem retornava 200 sem MySQL | A checagem consulta a tabela de usuários e retorna 503 durante a falha |
 
-Os testes executados incluíram **54 testes Python** com Flask, MySQL 8.4.13 e fluxo real no Chrome, além de **4 testes JavaScript**. Os testes verificaram cadastros, sessões, permissões, cardápio, transições do pedido, persistência, relatórios, estoque insuficiente e conflito de horários de locação.
+Os testes executados incluíram **55 testes Python** com Flask, MySQL 8.4.13 e fluxo real no Chrome, além de **4 testes JavaScript**. Os testes verificaram cadastros, sessões, permissões, cardápio, transições do pedido, persistência, relatórios, estoque insuficiente e conflito de horários de locação.
 
 O iniciador foi executado no macOS a partir de uma cópia nova e com Docker. Os arquivos de dados e a senha de administrador da instalação são gerados ao iniciar. O arquivo `Iniciar.bat` chama o mesmo iniciador em Python. A execução pelo arquivo do Windows não foi testada em um computador Windows.
 
 As locações, os ingredientes e as fichas técnicas são administrados por SQL nesta versão. Os relatórios estão em `database/11_queries_relatorios.sql`. O projeto foi validado para demonstração local.
+
+## Execução com MySQL instalado no computador
+
+O teste reproduziu o erro MySQL 1045 visto no cadastro de cozinheiro. Com uma senha inválida, `python app.py` encerrou antes de abrir o site. Com a conexão corrigida pelo novo iniciador, o cadastro respondeu 201. Uma nova execução conectou com a senha gravada no `.env`, incluindo caracteres especiais e preservando as configurações anteriores. O teste verificou o iniciador em Python no macOS com MySQL real. O arquivo que o abre no Windows ainda precisa de teste no Windows.

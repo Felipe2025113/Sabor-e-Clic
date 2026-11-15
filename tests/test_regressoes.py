@@ -1,4 +1,5 @@
-"""Casos mínimos de entradas malformadas e origem da requisição."""
+"""Regressões de validação, sessão e configuração local."""
+import os
 from unittest.mock import patch
 import socket
 import pytest
@@ -56,3 +57,24 @@ def test_saude_e_login_indicam_mysql_fora_do_ar(cliente, monkeypatch):
         login = cliente.post('/api/login', json={'email': 'teste@example.com', 'senha': 'TesteSeguro123'})
     assert saude.status_code == login.status_code == 503
     assert 'endereço e a porta' in saude.json['erro']
+
+
+def test_senha_mysql_local_recarrega_literal(monkeypatch, tmp_path):
+    from models import banco
+    from scripts import iniciar_mysql_local
+
+    arquivo = tmp_path / '.env'
+    arquivo.write_text('SECRET_KEY=chave-existente\n', encoding='utf-8-sig')
+    monkeypatch.setattr(banco, 'ARQUIVO_ENV', arquivo)
+    monkeypatch.setattr(iniciar_mysql_local, 'ARQUIVO_ENV', arquivo)
+    senha = "Senha#com " + chr(36) + "{LITERAL}" + chr(92) + "'"
+    configuracao = {
+        'host': '127.0.0.1', 'port': 3306, 'user': 'sabor',
+        'password': senha, 'database': 'sabor_clic',
+    }
+    with patch.dict(os.environ):
+        iniciar_mysql_local.salvar_configuracao(configuracao)
+        os.environ['MYSQL_PASSWORD'] = 'senha-antiga'
+        banco.carregar_env(override=True)
+        assert banco.configuracao_mysql() == configuracao
+        assert os.environ['SECRET_KEY'] == 'chave-existente'

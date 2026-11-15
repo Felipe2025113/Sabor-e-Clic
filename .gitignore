@@ -3,6 +3,7 @@ venv/
 __pycache__/
 *.py[cod]
 .env
+.env-tmp-*
 .sabor.env
 .sabor-admin-criado
 .DS_Store
