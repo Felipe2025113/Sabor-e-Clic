@@ -1,0 +1,10 @@
+.env
+.env-tmp-*
+.sabor.env
+.sabor-admin-criado
+.venv
+.git
+__pycache__
+.pytest_cache
+docs/evidencias
+tests

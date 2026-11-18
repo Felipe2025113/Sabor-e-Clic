@@ -489,6 +489,21 @@ async function avancarPedido(idPedido, acao){
     })
 }
 
+async function atualizarDadosAdm(evento){
+    evento.preventDefault()
+    await executarAcao(async () => {
+        const nome = campo("adm-nome").value.trim()
+        const email = campo("adm-email").value.trim()
+        const senha = campo("adm-senha-atual").value
+        const resultado = await apiAtualizarMeuPerfil(nome, email, senha)
+        estado.usuario.nome = resultado.usuario.nome
+        estado.usuario.email = resultado.usuario.email
+        campo("form-dados-adm").reset()
+        renderizarPerfil()
+        mostrarSucesso("Dados atualizados com sucesso")
+    })
+}
+
 function renderizarCardapioAdmin(){
     const cartoes = estado.pratos.map(prato => {
         const cartao = criarElemento("div", "", "item-cardapio")
@@ -716,6 +731,7 @@ function registrarEventos(){
     ligar("form-cadastro-cozinheiro", "submit", cadastrarCozinheiro)
     ligar("form-troca-senha", "submit", trocarSenha)
     ligar("form-prato", "submit", salvarPrato)
+    ligar("form-dados-adm", "submit", atualizarDadosAdm)
     ligar("btn-cancelar-prato", "click", limparFormularioPrato)
     ligar("btn-finalizar", "click", finalizarPedido)
 

@@ -1,97 +1,42 @@
-# Sabor & Clic — Parte 1
+# Sabor & Clic
 
-Projeto integrador com frontend em HTML, CSS e JavaScript e um backend inicial em Python/Flask.
+Projeto Integrador — Parte 2 · IFSP
 
-## Executar localmente
+Sistema de pedidos para uma dark kitchen, com cadastro de clientes e cozinheiros, gerenciamento do cardápio, acompanhamento do preparo e controle de acesso por perfil. Desenvolvido em HTML, CSS, JavaScript, Flask e MySQL.
 
-É necessário Python 3.9 ou superior. Na pasta do projeto:
+## Como testar
 
-```bash
-python -m venv .venv
-```
+O caminho mais simples usa **Python 3.10 ou superior** e **Docker Desktop**. O iniciador prepara o banco, carrega os dados e abre o site.
 
-Ative o ambiente no Windows:
+1. [Baixe a entrega em ZIP](https://github.com/Felipe2025113/Sabor-e-Clic/releases/latest/download/Sabor-e-Clic-Parte-2.zip) e extraia a pasta.
+2. Abra o Docker Desktop e aguarde a inicialização.
+3. No Windows, dê dois cliques em **Iniciar.bat**. No macOS, abra **Iniciar.command**. No Linux, execute `python3 -m scripts.iniciar` dentro da pasta.
+4. Aguarde o navegador abrir. A primeira execução precisa de internet para baixar as dependências.
 
-```powershell
-.venv\Scripts\Activate.ps1
-```
+O terminal mostra o endereço do site e a senha inicial de **admin@saborclic.local**. Para acessar o painel administrativo, entre pela **Área do Cliente** com essas credenciais.
 
-Ou no Linux/macOS:
+Os cadastros e pedidos são mantidos entre as execuções. Para parar, execute `python -m scripts.iniciar --parar` na mesma pasta. No macOS/Linux, use `python3`.
 
-```bash
-source .venv/bin/activate
-```
+## Roteiro de teste
 
-Instale a dependência e inicie o servidor:
+Para usar os perfis ao mesmo tempo, abra navegadores diferentes ou perfis separados do navegador. Você também pode sair de uma conta e entrar em outra.
 
-```bash
-python -m pip install -r requirements.txt
-python app.py
-```
+| Perfil | O que testar |
+|---|---|
+| Cliente | Cadastre uma conta, entre, adicione pratos ao carrinho e confirme o pedido. |
+| Administrador | Use o acesso mostrado no terminal. Cadastre ou edite um prato e aprove o cadastro de um cozinheiro. |
+| Cozinheiro | Solicite o cadastro pela Área do Cozinheiro. Após a aprovação, use a senha provisória apresentada ao administrador e troque-a no primeiro acesso. |
 
-- Site existente: http://127.0.0.1:5000/
-- Demonstração da integração com Flask: http://127.0.0.1:5000/demo-api
-- Verificação do servidor: http://127.0.0.1:5000/api/health
+Na cozinha, informe o tempo de preparo e avance o pedido por **Recebido → Em Preparo → Pronto → Entregue**. A tela do cliente acompanha essas mudanças automaticamente.
 
-Abra as páginas pelo servidor, pois a navegação usa caminhos a partir da raiz do site.
+## MySQL instalado no computador
 
-## Backend inicial
+Para executar pelo Python ou pelo VS Code com um MySQL próprio, consulte as [instruções de configuração](docs/EXECUCAO.md#alternativa-python-e-mysql-instalados). No Windows, o arquivo **Iniciar-MySQL-Local.bat** testa essa conexão e pede as credenciais do MySQL quando necessário.
 
-A organização segue uma separação simples de responsabilidades:
+## Banco de dados e testes
 
-- `app.py`: configura o Flask e serve as páginas existentes.
-- `models/memoria.py`: dados simulados, cálculo do pedido e regras básicas.
-- `controllers/api.py`: recebe requisições e define os endpoints.
-- `views/respostas.py`: padroniza a apresentação das respostas JSON.
-- `templates/demo_api.html` e `static/js/demo_api.js`: demonstração de GET e POST com Fetch.
+Os quatro scripts SQL ficam em `database/`. Eles contêm o modelo físico, os dados iniciais, os relatórios e as triggers de estoque, total do pedido e conflito de locações.
 
-| Método | Rota | Função |
-| --- | --- | --- |
-| GET | `/api/health` | Verificar o serviço |
-| GET | `/api/pratos` | Listar os três pratos de exemplo |
-| GET | `/api/pedidos` | Listar pedidos em memória |
-| GET | `/api/pedidos/<id>` | Consultar um pedido |
-| POST | `/api/pedidos` | Criar pedido |
-| PATCH | `/api/pedidos/<id>/status` | Avançar o status |
+A manutenção de ingredientes, fichas técnicas e locações é feita por SQL. Novos pratos precisam da ficha técnica para descontar seus ingredientes do estoque.
 
-POST e PATCH recebem `Content-Type: application/json`.
-
-Exemplo do corpo de `POST /api/pedidos`:
-
-```json
-{
-  "cliente": "Cliente Teste",
-  "endereco": "Rua de teste, 10",
-  "itens": [{"prato_id": 1, "quantidade": 2}]
-}
-```
-
-O servidor consulta o preço do prato e calcula o total; valores de preço enviados pelo cliente não são usados. A resposta de criação tem código HTTP 201 e formato `{"sucesso": true, "dados": {...}}`. Erros de validação retornam 400 e `{"sucesso": false, "erro": "mensagem"}`. Pedidos inexistentes retornam 404.
-
-Exemplo de `PATCH /api/pedidos/1/status`:
-
-```json
-{"status": "Em Preparo", "tempoEstimado": 20}
-```
-
-O fluxo é `Pedido recebido` → `Em Preparo` → `Pronto para Entrega` → `Entregue`. O início do preparo exige tempo inteiro positivo em minutos. Para os dois últimos estados, basta enviar `status`.
-
-## Limitações previstas nesta etapa
-
-Este é um protótipo acadêmico para demonstração local com dados fictícios.
-
-- Os pedidos da API ficam em memória e são apagados ao reiniciar o servidor.
-- As telas originais de cliente, administrador e cozinheiro continuam usando `localStorage`/`sessionStorage`. Seus dados não são sincronizados com a API; a integração inicial está em `/demo-api`.
-- Ainda não há login real, autorização por perfil, banco relacional, agendamentos, estoque ou CRUD de pratos na API.
-- A memória não é adequada para múltiplos processos e acessos concorrentes de produção.
-- A integração completa das telas e a persistência ficam para a continuação do projeto.
-
-## Verificação
-
-```bash
-python -m unittest discover -s tests -v
-```
-
-Os testes cobrem criação e consulta, preço calculado pelo servidor, entradas inválidas, transições de status, reinicialização da memória e acesso às páginas existentes.
-
-Referência: [documentação oficial do Flask](https://flask.palletsprojects.com/en/stable/quickstart/).
+Os testes automatizados estão em `tests/`. As [instruções de execução](docs/EXECUCAO.md#repetir-os-testes) e os [resultados da validação](docs/VALIDACAO.md) estão na pasta `docs/`.

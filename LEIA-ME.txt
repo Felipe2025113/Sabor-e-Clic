@@ -1,0 +1,33 @@
+SABOR & CLIC — PROJETO INTEGRADOR, PARTE 2
+
+PARA ABRIR
+1. Tenha Python 3.10 ou superior e Docker Desktop instalados.
+2. Extraia todos os arquivos do ZIP.
+3. Abra o Docker Desktop e aguarde ele iniciar.
+4. No Windows, abra Iniciar.bat com dois cliques.
+   No macOS, abra Iniciar.command.
+   No Linux, execute python3 -m scripts.iniciar.
+5. Aguarde o navegador abrir. O primeiro uso baixa as dependências.
+6. O terminal mostra o endereço, o e-mail e a senha inicial do administrador.
+   Entre pela Área do Cliente para acessar o painel administrativo.
+
+PARA TESTAR
+- Cadastre um cliente e faça um pedido.
+- Cadastre um cozinheiro.
+- Entre como administrador e aprove o cozinheiro. Anote a senha provisória.
+- Entre como cozinheiro e troque a senha provisória.
+- Informe os minutos e avance o pedido até Entregue.
+- Confira a atualização na tela do cliente.
+
+Para testar os perfis ao mesmo tempo, use navegadores ou perfis separados.
+Também é possível sair de uma conta e entrar em outra.
+
+PARA PARAR
+Na pasta do projeto, execute python -m scripts.iniciar --parar.
+No macOS/Linux, use python3.
+
+COM MYSQL PRÓPRIO
+Leia docs/EXECUCAO.md. No Windows, use Iniciar-MySQL-Local.bat depois
+de instalar as dependências do Python e preparar a base.
+
+Repositório: https://github.com/Felipe2025113/Sabor-e-Clic

@@ -155,3 +155,11 @@ async function apiRecusarCozinheiro(id){
         metodo: "DELETE"
     })
 }
+
+// Única chamada nova: o formulário de edição de perfil do ADM já existia.
+async function apiAtualizarMeuPerfil(nome, email, senhaAtual){
+    return await requisicao("/api/me", {
+        metodo: "PUT",
+        corpo: { nome, email, senhaAtual }
+    })
+}
